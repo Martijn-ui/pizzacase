@@ -1,0 +1,15 @@
+D:\projectpizzacase\client\client\obj\Debug\net6.0\client.csproj.AssemblyReference.cache
+D:\projectpizzacase\client\client\obj\Debug\net6.0\client.GeneratedMSBuildEditorConfig.editorconfig
+D:\projectpizzacase\client\client\obj\Debug\net6.0\client.AssemblyInfoInputs.cache
+D:\projectpizzacase\client\client\obj\Debug\net6.0\client.AssemblyInfo.cs
+D:\projectpizzacase\client\client\obj\Debug\net6.0\client.csproj.CoreCompileInputs.cache
+D:\projectpizzacase\client\client\bin\Debug\net6.0\client.exe
+D:\projectpizzacase\client\client\bin\Debug\net6.0\client.deps.json
+D:\projectpizzacase\client\client\bin\Debug\net6.0\client.runtimeconfig.json
+D:\projectpizzacase\client\client\bin\Debug\net6.0\client.dll
+D:\projectpizzacase\client\client\bin\Debug\net6.0\client.pdb
+D:\projectpizzacase\client\client\obj\Debug\net6.0\client.dll
+D:\projectpizzacase\client\client\obj\Debug\net6.0\refint\client.dll
+D:\projectpizzacase\client\client\obj\Debug\net6.0\client.pdb
+D:\projectpizzacase\client\client\obj\Debug\net6.0\client.genruntimeconfig.cache
+D:\projectpizzacase\client\client\obj\Debug\net6.0\ref\client.dll
