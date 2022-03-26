@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\projectpizzacase\\serverapplication\\serverapplication\\serverapplication.csproj",
+      "projectUniqueName": "D:\\pizzacase\\pizzacase\\serverapplication\\serverapplication\\serverapplication.csproj",
       "projectName": "serverapplication",
-      "projectPath": "D:\\projectpizzacase\\serverapplication\\serverapplication\\serverapplication.csproj",
+      "projectPath": "D:\\pizzacase\\pizzacase\\serverapplication\\serverapplication\\serverapplication.csproj",
       "packagesPath": "C:\\Users\\Marti\\.nuget\\packages\\",
-      "outputPath": "D:\\projectpizzacase\\serverapplication\\serverapplication\\obj\\",
+      "outputPath": "D:\\pizzacase\\pizzacase\\serverapplication\\serverapplication\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Marti\\AppData\\Roaming\\NuGet\\NuGet.Config",

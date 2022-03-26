@@ -73,35 +73,6 @@ namespace serverapplication
                     udpServer.Close();
                     info = null;
                 }
-                //TcpClient clienttcp = server.AcceptTcpClient();
-                //Console.WriteLine("Connected!");
-
-                //data = null;
-
-                //// Get a stream object for reading and writing
-                //NetworkStream stream = clienttcp.GetStream();
-
-                //int i;
-
-                //// Loop to receive all the data sent by the client.
-                //while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
-                //{
-                //    // Translate data bytes to a ASCII string.
-                //    data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
-                //    Console.WriteLine("Received: {0}", data);
-
-                //    // hierbij pak je de data om naar de client te sturen
-                //    data = data.ToUpper();
-                //    //hier converteer je de data naar bytes
-                //    byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
-                //    // dit stuurt het naar de client
-                //    stream.Write(msg, 0, msg.Length);
-                //    Console.WriteLine("Sent: {0}", data);
-                //}
-
-                //// sluit de connectie met de client
-                //clienttcp.Close();
-                //server = null;
             }
         }
     }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "v/XG03yHWWLtWu6WlkgS7OLqPvid90JZPxW8bp7p8DqvBvtSyNeuh3Oe2ePmW18Y5tvbfU1KiPSxFZaAr6iG9w==",
+  "dgSpecHash": "Cui/gU5ph07C3RHPB7xe0qnxkVHyl2Yo47biOISs7bXAkTR3OiKGUeRWioI812DJHWCk4FYjocR6PVLpvdOsVg==",
   "success": true,
-  "projectFilePath": "D:\\projectpizzacase\\serverapplication\\serverapplication\\serverapplication.csproj",
+  "projectFilePath": "D:\\pizzacase\\pizzacase\\serverapplication\\serverapplication\\serverapplication.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
