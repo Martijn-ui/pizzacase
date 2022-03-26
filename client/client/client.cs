@@ -60,7 +60,7 @@ namespace client
 
             Console.WriteLine("Naam: ");
             bestelling.Naam = Convert.ToString(Console.ReadLine());
-
+           
             Console.WriteLine("Adress: ");
             bestelling.Adress = Convert.ToString(Console.ReadLine());
 

@@ -15,9 +15,10 @@ namespace client
         private string naampizza;
         private int sumpizza;
         private int sumtoppings;
-        private int prijs;
+     
         private List<string> topping = new List<string>();
-      
+        pizza pizza = new pizza();
+
         public string Naam
         {
             get { return naam; }
@@ -46,8 +47,13 @@ namespace client
         public string Naampizza
         {
             get { return naampizza; }
-            set { naampizza = value; }
-        }
+            set 
+            { 
+                naampizza = value;
+                pizza.Naampizza = value;
+            }
+            
+    }
 
         public int Sumpizza
         {
@@ -64,6 +70,7 @@ namespace client
         public void addtopping(string naamtopping)
         {
             topping.Add(naamtopping);
+            pizza.addtopping(naamtopping);
         }
         public List<string> Topping
         {
