@@ -10,6 +10,42 @@ namespace serverapplication
     {
         public static void Main()
         {
+            Console.WriteLine("Kies via welke je wilt connecten : ");
+            Console.WriteLine("tcp = 1");
+            Console.WriteLine("udp = 0");
+            int con = Convert.ToInt32(Console.ReadLine());
+            Boolean check = true;
+            while (con > 1 | con < 0)
+            {
+                if (check)
+                {
+                    Console.WriteLine("Fout!! U moet kiezen uit 0 of 1");
+                    Console.WriteLine("Kies via welke je wilt connecten : ");
+                    Console.WriteLine("tcp = 1");
+                    Console.WriteLine("udp = 0");
+                    con = Convert.ToInt32(Console.ReadLine());
+                }
+            }
+            //dit is voor udp
+            if (con == 1)
+            {
+                check = false;
+                tcpconnect();
+            }
+
+            //dit is voor UDP
+            if (con == 0)
+            {
+                check = false;
+                udpconnect();
+               
+            }
+
+
+        }
+
+        public static void tcpconnect()
+        {
             TcpListener server = null;
             // Set the TcpListener on port 13000.
             Int32 port = 13000;
@@ -60,32 +96,65 @@ namespace serverapplication
 
                     Console.WriteLine("ArgumentNullException: {0}", e);
                 }
-                Console.Write("Waiting for a connection... ");
-                UdpClient udpServer = new UdpClient(11000);
-                var remoteEP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 11000);
-                var info = udpServer.Receive(ref remoteEP);
+                server = null;
 
-                while (info != null)
+            }
+        }
+
+
+
+        public static void udpconnect()
+        {
+            Console.Write("Waiting for a connection... ");
+            UdpClient udpServer = new UdpClient(11000);
+            var remoteEP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 11000);
+            var info = udpServer.Receive(ref remoteEP);
+
+            while (info != null)
+            {
+                Console.WriteLine("joo");
+                Console.Write("receive data from " + remoteEP.ToString());
+                udpServer.Send(new byte[] { 1 }, 1, remoteEP);
+
+
+                try
                 {
-                    Console.WriteLine("joo");
-                    Console.Write("receive data from " + remoteEP.ToString());
-                    udpServer.Send(new byte[] { 1 }, 1, remoteEP);
-                    udpServer.Close();
-                    info = null;
+
+                    // Blocks until a message returns on this socket from a remote host.
+                    Byte[] receiveBytes = udpServer.Receive(ref remoteEP);
+
+                    string returnData = Encoding.ASCII.GetString(receiveBytes);
+
+                    Console.WriteLine("This is the message you received " +
+                                              returnData.ToString());
+
                 }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
+
+                info = null;
             }
         }
     }
 }
+         
 
-               
 
-                 
-                
-            
-       
 
-        
-    
-   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

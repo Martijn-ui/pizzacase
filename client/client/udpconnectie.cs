@@ -16,21 +16,18 @@ namespace client
         public static void Connect(string server, string message)
         {
 
-            var client = new UdpClient();
-            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 11000); // endpoint where server is listening
-            client.Connect(ep);
+            UdpClient udpClient = new UdpClient();
 
-            // send data
-            client.Send(new byte[] { 1, 2, 3, 4, 5 }, 5);
+            Byte[] sendBytes = Encoding.ASCII.GetBytes("Is anybody there");
+            try
+            {
+                udpClient.Send(sendBytes, sendBytes.Length, "127.0.0.1", 11000);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
 
-            // then receive data
-            var receivedData = client.Receive(ref ep);
-
-            Console.Write("receive data from udp" + ep.ToString());
-
-            Console.Read();
-            client.Close();
-            
 
         }
     }
