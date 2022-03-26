@@ -16,7 +16,7 @@ namespace client
         private int sumpizza;
         private int sumtoppings;
         private int prijs;
-        public List<string> topping = new List<string>();
+        private List<string> topping = new List<string>();
       
         public string Naam
         {
@@ -68,7 +68,6 @@ namespace client
         public List<string> Topping
         {
             get { return topping; }
-            set { topping = value; }
         }
 
 
