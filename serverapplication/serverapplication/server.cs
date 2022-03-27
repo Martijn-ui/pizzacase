@@ -10,17 +10,17 @@ namespace serverapplication
     {
         public static void Main()
         {
-            Console.WriteLine("Kies via welke je wilt connecten : ");
+            Console.Clear();
+            Console.WriteLine("Via welke socket wil je de server runnen : ");
             Console.WriteLine("tcp = 1");
             Console.WriteLine("udp = 0");
             int con = Convert.ToInt32(Console.ReadLine());
-            Boolean check = true;
             while (con > 1 | con < 0)
             {
-                if (check)
+                if (true)
                 {
                     Console.WriteLine("Fout!! U moet kiezen uit 0 of 1");
-                    Console.WriteLine("Kies via welke je wilt connecten : ");
+                    Console.WriteLine("Via welke socket wil je de server runnen : ");
                     Console.WriteLine("tcp = 1");
                     Console.WriteLine("udp = 0");
                     con = Convert.ToInt32(Console.ReadLine());
@@ -29,16 +29,15 @@ namespace serverapplication
             //dit is voor udp
             if (con == 1)
             {
-                check = false;
                 tcpconnect();
+                Main();
             }
 
             //dit is voor UDP
             if (con == 0)
             {
-                check = false;
                 udpconnect();
-               
+                Main();
             }
 
 
@@ -59,8 +58,7 @@ namespace serverapplication
             Byte[] bytes = new Byte[256];
             String data = null;
 
-            while (server != null)
-            {
+          
                 try
                 {
                     Console.Write("Waiting for a connection... ");
@@ -80,15 +78,19 @@ namespace serverapplication
                     {
                         // Translate data bytes to a ASCII string.
                         data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
-                        Console.WriteLine("Received: {0}", data);
+                        string[] bestelling = data.Split(';');
+                    foreach (var item in bestelling)
+                    {
+                        Console.WriteLine(item);
+                    }
 
                         // hierbij pak je de data om naar de client te sturen
-                        data = data.ToUpper();
+                        var ontvangen = "Uw bestelling is ontvangen!!;";
                         //hier converteer je de data naar bytes
-                        byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
+                        byte[] msg = System.Text.Encoding.ASCII.GetBytes(ontvangen);
                         // dit stuurt het naar de client
                         stream.Write(msg, 0, msg.Length);
-                        Console.WriteLine("Sent: {0}", data);
+                        //Console.WriteLine("Sent: {0}", ontvangen);
                     }
                 }
                 catch (Exception e)
@@ -96,46 +98,44 @@ namespace serverapplication
 
                     Console.WriteLine("ArgumentNullException: {0}", e);
                 }
-                server = null;
+            server.Stop();
 
-            }
         }
-
-
 
         public static void udpconnect()
         {
             Console.Write("Waiting for a connection... ");
             UdpClient udpServer = new UdpClient(11000);
+            
+            
             var remoteEP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 11000);
             var info = udpServer.Receive(ref remoteEP);
-
-            while (info != null)
-            {
-                Console.WriteLine("joo");
-                Console.Write("receive data from " + remoteEP.ToString());
-                udpServer.Send(new byte[] { 1 }, 1, remoteEP);
-
+            Byte[] sendBytes;
+         
+                string ontvangen = "Uw bestelling is ontvangen!!";
+                sendBytes = System.Text.Encoding.ASCII.GetBytes(ontvangen);             
+                udpServer.Send(sendBytes, sendBytes.Length, remoteEP);
 
                 try
                 {
+                
 
-                    // Blocks until a message returns on this socket from a remote host.
-                    Byte[] receiveBytes = udpServer.Receive(ref remoteEP);
+                int i;
 
-                    string returnData = Encoding.ASCII.GetString(receiveBytes);
 
-                    Console.WriteLine("This is the message you received " +
-                                              returnData.ToString());
-
-                }
+                // Blocks until a message returns on this socket from a remote host.
+                Byte[] receiveBytes = udpServer.Receive(ref remoteEP);
+                string bestelling = Encoding.ASCII.GetString(receiveBytes);
+                Console.WriteLine(bestelling.ToString());
+            }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.ToString());
                 }
+            udpServer.Close();
 
-                info = null;
-            }
+                
+            
         }
     }
 }

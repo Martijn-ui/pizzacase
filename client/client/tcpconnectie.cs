@@ -12,38 +12,58 @@ namespace client
 {
     public class tcpconnectie
     {
-        public static void Connect(string server, string message)
+        public static void Connect(string naam, string adress, string postcodeenstad, string naampizza, int sumpizza, int sumtoppings, List<string> toppings, DateTime datumtijd)
         {
+            Byte[] bytes = new Byte[256];
+            String ontvangen = null;
             try
             {
                 //connect naar de server
                 Int32 port = 13000;
+                string server = "127.0.0.1";
                 TcpClient client = new TcpClient(server, port);
          
                 Console.ReadKey();
-
-
-                //hier stuur je de message naar de server
-                //naar je moet er eerst een byte van maken anders
-                //kan je het niet versturen en gaat het fout
-                byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
+                
                 NetworkStream stream = client.GetStream();
-                
+                byte[] data;
+                byte[] Topping;
+                data = System.Text.Encoding.ASCII.GetBytes(naam + ";" + adress + ";" + postcodeenstad + ";" + naampizza + ";" + sumpizza + ";" + sumtoppings);
                 stream.Write(data, 0, data.Length);
-                Console.WriteLine("Sent: {0}", message);
-                data = new Byte[256];
-
-                // String to store the response ASCII representation.
-                String responseData = String.Empty;
-
-                // hier lees je wat de server stuurt en geef je aan dat het een byte is
-                //dan kun je daarna de byte converteren naar een string
                 
-                Int32 bytes = stream.Read(data, 0, data.Length);
-                responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
-                Console.WriteLine("Received: {0}", responseData);
+                    foreach (var item in toppings)
+                    {
+                        Topping = System.Text.Encoding.ASCII.GetBytes(";" + item);
+                        stream.Write(Topping, 0, Topping.Length);
+                    }     
+                data = System.Text.Encoding.ASCII.GetBytes(";" + datumtijd);
+                stream.Write(data, 0, data.Length);               
 
-                // sluit de connectie tussen
+                Console.WriteLine("Naam: {0}", naam);
+                Console.WriteLine("Adress: {0}", adress);
+                Console.WriteLine("Postcode en Stad: {0}", postcodeenstad);
+                Console.WriteLine("Naam pizza: {0}", naampizza);
+                Console.WriteLine("Aantal pizza's: {0}", sumpizza);
+                Console.WriteLine("Hoeveel extra toppings: {0}", sumtoppings);
+              
+                foreach (var item in toppings)
+                    {
+                        Console.WriteLine("Toppings {0}", item);
+                    }
+                            
+                Console.WriteLine("Tijd van bestelling {0}", datumtijd);
+
+                int i;
+
+                while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
+                {
+                    // Translate data bytes to a ASCII string.
+                    ontvangen = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
+                    string[] msg = ontvangen.Split(';');
+                    Console.WriteLine(msg[0]);
+                }
+                
+                // sluit de connectie tussen de server en client
                 stream.Close();
                 client.Close();
             }
@@ -55,8 +75,6 @@ namespace client
             {
                 Console.WriteLine("SocketException: {0}", e);
             }
-            Console.WriteLine("\n Press Enter to continue...");
-            Console.Read();
         }
     }
 }
