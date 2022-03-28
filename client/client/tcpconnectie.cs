@@ -15,43 +15,41 @@ namespace client
         public static void Connect(string naam, string adress, string postcodeenstad, string naampizza, int sumpizza, int sumtoppings, List<string> toppings, DateTime datumtijd)
         {
             Byte[] bytes = new Byte[256];
+            //connect naar de server
+            Int32 port = 13000;
+            string server = "127.0.0.1";
+            TcpClient client = new TcpClient(server, port);
+            NetworkStream stream = client.GetStream();
+            byte[] data;
+            byte[] Topping;
+
+            //data encyrpten
+            var encryptpostcodeenstad = Encrypt.EncryptString(postcodeenstad);
+            var encryptadress = Encrypt.EncryptString(adress);
+
             try
-            {
-                //connect naar de server
-                Int32 port = 13000;
-                string server = "127.0.0.1";
-                TcpClient client = new TcpClient(server, port);
-         
-                Console.ReadKey();
-                
-                NetworkStream stream = client.GetStream();
-                byte[] data;
-                byte[] Topping;
-                data = System.Text.Encoding.ASCII.GetBytes(naam + ";" + adress + ";" + postcodeenstad + ";" + naampizza + ";" + sumpizza + ";" + sumtoppings);
+            {            
+                data = System.Text.Encoding.ASCII.GetBytes(naam + ";" + encryptadress + ";" + encryptpostcodeenstad + ";" + naampizza + ";" + sumpizza + ";" + sumtoppings);
                 stream.Write(data, 0, data.Length);
                 
-                    foreach (var item in toppings)
+                foreach (var item in toppings)
                     {
                         Topping = System.Text.Encoding.ASCII.GetBytes(";" + item);
                         stream.Write(Topping, 0, Topping.Length);
                     }     
+
                 data = System.Text.Encoding.ASCII.GetBytes(";" + datumtijd);
                 stream.Write(data, 0, data.Length);               
 
+                //dit laat de bestelling zien in de console van de client
                 Console.WriteLine("Naam: {0}", naam);
                 Console.WriteLine("Adress: {0}", adress);
                 Console.WriteLine("Postcode en Stad: {0}", postcodeenstad);
                 Console.WriteLine("Naam pizza: {0}", naampizza);
                 Console.WriteLine("Aantal pizza's: {0}", sumpizza);
                 Console.WriteLine("Hoeveel extra toppings: {0}", sumtoppings);
-              
-                foreach (var item in toppings)
-                    {
-                        Console.WriteLine("Toppings {0}", item);
-                    }
-                            
-                Console.WriteLine("Tijd van bestelling {0}", datumtijd);
 
+                //dit leest de message die de client stuurt
                 int i;
 
                 while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
@@ -60,11 +58,13 @@ namespace client
                     String ontvangen = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
                     string[] msg = ontvangen.Split(';');
                     Console.WriteLine(msg[0]);
+                    
                 }
-                
-                // sluit de connectie tussen de server en client
                 stream.Close();
                 client.Close();
+
+                // sluit de connectie tussen de server en client
+
             }
             catch (ArgumentNullException e)
             {

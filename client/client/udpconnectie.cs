@@ -18,18 +18,22 @@ namespace client
 
             UdpClient udpClient = new UdpClient();
             IPEndPoint RemoteIp = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 11000);
-            Byte[] sendBytes = Encoding.ASCII.GetBytes(naam + ";" + adress + ";" + postcodeenstad + ";" + naampizza + ";" + sumpizza + ";" + sumtoppings);
+         
             Byte[] Topping;
             byte[] DatumTijd;
             Byte[] bytes = new Byte[256];
+
+            //data encyrpten
+            var encryptpostcodeenstad = Encrypt.EncryptString(postcodeenstad);
+            var encryptadress = Encrypt.EncryptString(adress);
             try
             {
-                
+                Byte[] sendBytes = Encoding.ASCII.GetBytes(naam + ";" + encryptadress + ";" + encryptpostcodeenstad + ";" + naampizza + ";" + sumpizza + ";" + sumtoppings);
                 udpClient.Send(sendBytes, sendBytes.Length, RemoteIp);
                 foreach (var item in toppings)
                 {
                     Topping = System.Text.Encoding.ASCII.GetBytes(";" + item);
-                    udpClient.Send(Topping, Topping.Length, "127.0.0.1", 11000);
+                    udpClient.Send(Topping, Topping.Length, RemoteIp);
                 }
                 DatumTijd = System.Text.Encoding.ASCII.GetBytes(";" + datumtijd);
                 udpClient.Send(DatumTijd, DatumTijd.Length, RemoteIp);

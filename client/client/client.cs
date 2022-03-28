@@ -16,6 +16,7 @@ namespace client
         
         public static void Main()
         {
+
             Console.Clear();
             Console.WriteLine("Kies via welke je wilt connecten : ");
             Console.WriteLine("tcp = 1");
@@ -47,6 +48,7 @@ namespace client
             if (con == 0)
             {
                 bestellingvragenenversturenudp();
+
                 Console.WriteLine("Press enter om een nieuwe bestelling te maken?");
                 Console.ReadLine();
                 Main();
