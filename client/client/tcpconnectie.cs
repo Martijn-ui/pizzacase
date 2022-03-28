@@ -15,7 +15,6 @@ namespace client
         public static void Connect(string naam, string adress, string postcodeenstad, string naampizza, int sumpizza, int sumtoppings, List<string> toppings, DateTime datumtijd)
         {
             Byte[] bytes = new Byte[256];
-            String ontvangen = null;
             try
             {
                 //connect naar de server
@@ -58,7 +57,7 @@ namespace client
                 while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
                 {
                     // Translate data bytes to a ASCII string.
-                    ontvangen = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
+                    String ontvangen = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
                     string[] msg = ontvangen.Split(';');
                     Console.WriteLine(msg[0]);
                 }

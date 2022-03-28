@@ -24,12 +24,13 @@ namespace client
             Byte[] bytes = new Byte[256];
             try
             {
-                //udpClient.Send(sendBytes, sendBytes.Length, RemoteIp);
-                //foreach (var item in toppings)
-                //{
-                //    Topping = System.Text.Encoding.ASCII.GetBytes(";" + item);
-                //    udpClient.Send(Topping, Topping.Length, "127.0.0.1", 11000);
-                //}
+                
+                udpClient.Send(sendBytes, sendBytes.Length, RemoteIp);
+                foreach (var item in toppings)
+                {
+                    Topping = System.Text.Encoding.ASCII.GetBytes(";" + item);
+                    udpClient.Send(Topping, Topping.Length, "127.0.0.1", 11000);
+                }
                 DatumTijd = System.Text.Encoding.ASCII.GetBytes(";" + datumtijd);
                 udpClient.Send(DatumTijd, DatumTijd.Length, RemoteIp);
 
