@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace client
 {
-    class bestelling
+    class bestelling : Visitable
     {
         private string naam;
         private string adress;
         private string postcodeenstad;
         private DateTime datumtijd = DateTime.Now;
         private string naampizza;
-        private int sumpizza;
-        private int sumtoppings;
+        public int sumpizza;
+        public int sumtoppings;
      
         private List<string> topping = new List<string>();
         pizza pizza = new pizza();
@@ -76,10 +76,13 @@ namespace client
         {
             get { return topping; }
         }
-
-
+        //Visitable plaatst de accept method in de bestelling class zodat indien nodig method overloading toegepast kan worden.
+        //Dit kan gebeuren als je meerdere visit methodes heb voor verschillende klassen bijvoorbeeld.
+        public int accept(Visitor visitor)
+        {
+            return visitor.Visit(this);
+        }
     }
-
 }       
     
 

@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "TCoCf5Xfb2S/frh1ZH7eGXR5p2pW2hGpsngoh0Li8PpTGVd7GtpPVcprmBCHpN2hqixY0/Bkce4fu6fghnYJdw==",
+  "dgSpecHash": "pVLdcRuKC0eAqAXLtXBQGv2La0iNHIki2JE75m2PhddUdGa0pzMh/R7kDqMdNkVv65sFZu8sJql5sDmlN5AvkQ==",
   "success": true,
-  "projectFilePath": "D:\\pizzacase\\pizzacase\\client\\client\\client.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\Gebruiker\\Documents\\GitHub\\pizzacase\\client\\client\\client.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Gebruiker\\.nuget\\packages\\microsoft.netcore.app.ref\\5.0.0\\microsoft.netcore.app.ref.5.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

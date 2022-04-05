@@ -87,6 +87,9 @@ namespace client
                     bestelling.addtopping(Convert.ToString(Console.ReadLine()));
                 }
 
+                PrijsVisitor prijsCalc = new();
+                Console.WriteLine("Totaalprijs: " + bestelling.accept(prijsCalc));
+
                 tcpconnectie.Connect(bestelling.Naam, bestelling.Adress, bestelling.Postcodeenstad, bestelling.Naampizza, bestelling.Sumpizza, bestelling.Sumtoppings, bestelling.Topping, bestelling.Datumtijd);
 
 
@@ -129,6 +132,9 @@ namespace client
                     bestelling.addtopping(Convert.ToString(Console.ReadLine()));
                 }
 
+                PrijsVisitor prijsCalc = new();
+                Console.WriteLine("Totaalprijs: " + bestelling.accept(prijsCalc));
+
                 udpconnectie.Connect(bestelling.Naam, bestelling.Adress, bestelling.Postcodeenstad, bestelling.Naampizza, bestelling.Sumpizza, bestelling.Sumtoppings, bestelling.Topping, bestelling.Datumtijd);
 
             }
@@ -139,6 +145,7 @@ namespace client
          
 
         }
+
 
 
     }
