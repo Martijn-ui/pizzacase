@@ -57,70 +57,86 @@ namespace client
 
         private static void bestellingvragenenversturentcp()
         {
-            bestelling bestelling = new bestelling();
-            Console.Clear();
-            Console.WriteLine("Maak uw bestelling: ");
-
-            Console.WriteLine("Naam: ");
-            bestelling.Naam = Convert.ToString(Console.ReadLine());
-           
-            Console.WriteLine("Adress: ");
-            bestelling.Adress = Convert.ToString(Console.ReadLine());
-
-            Console.WriteLine("Postcode en stad: ");
-            bestelling.Postcodeenstad = Convert.ToString(Console.ReadLine());
-
-            Console.WriteLine("Naam pizza: ");
-            bestelling.Naampizza = Convert.ToString(Console.ReadLine());
-
-            Console.WriteLine("Aantal pizza's: ");
-            bestelling.Sumpizza = Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine("Hoeveel extra toppings: ");
-            bestelling.Sumtoppings = Convert.ToInt32(Console.ReadLine());
-            int count = bestelling.Sumtoppings;
-            for (int i = 0; i < count; i++)
+            try
             {
-                Console.WriteLine("topping " + i);
-                bestelling.addtopping(Convert.ToString(Console.ReadLine()));
+                bestelling bestelling = new bestelling();
+                Console.Clear();
+                Console.WriteLine("Maak uw bestelling: ");
+
+                Console.WriteLine("Naam: ");
+                bestelling.Naam = Convert.ToString(Console.ReadLine());
+
+                Console.WriteLine("Adress: ");
+                bestelling.Adress = Convert.ToString(Console.ReadLine());
+
+                Console.WriteLine("Postcode en stad: ");
+                bestelling.Postcodeenstad = Convert.ToString(Console.ReadLine());
+
+                Console.WriteLine("Naam pizza: ");
+                bestelling.Naampizza = Convert.ToString(Console.ReadLine());
+
+                Console.WriteLine("Aantal pizza's: ");
+                bestelling.Sumpizza = Convert.ToInt32(Console.ReadLine());
+
+                Console.WriteLine("Hoeveel extra toppings: ");
+                bestelling.Sumtoppings = Convert.ToInt32(Console.ReadLine());
+                int count = bestelling.Sumtoppings;
+                for (int i = 0; i < count; i++)
+                {
+                    Console.WriteLine("topping " + i);
+                    bestelling.addtopping(Convert.ToString(Console.ReadLine()));
+                }
+
+                tcpconnectie.Connect(bestelling.Naam, bestelling.Adress, bestelling.Postcodeenstad, bestelling.Naampizza, bestelling.Sumpizza, bestelling.Sumtoppings, bestelling.Topping, bestelling.Datumtijd);
+
+
             }
-
-            tcpconnectie.Connect(bestelling.Naam, bestelling.Adress, bestelling.Postcodeenstad, bestelling.Naampizza, bestelling.Sumpizza, bestelling.Sumtoppings, bestelling.Topping, bestelling.Datumtijd);
-
-
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            
         }
         private static void bestellingvragenenversturenudp()
         {
-            bestelling bestelling = new bestelling();
-            Console.Clear();
-            Console.WriteLine("Maak uw bestelling: ");
-
-            Console.WriteLine("Naam: ");
-            bestelling.Naam = Convert.ToString(Console.ReadLine());
-
-            Console.WriteLine("Adress: ");
-            bestelling.Adress = Convert.ToString(Console.ReadLine());
-
-            Console.WriteLine("Postcode en stad: ");
-            bestelling.Postcodeenstad = Convert.ToString(Console.ReadLine());
-
-            Console.WriteLine("Naam pizza: ");
-            bestelling.Naampizza = Convert.ToString(Console.ReadLine());
-
-            Console.WriteLine("Aantal pizza's: ");
-            bestelling.Sumpizza = Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine("Hoeveel extra toppings: ");
-            bestelling.Sumtoppings = Convert.ToInt32(Console.ReadLine());
-            int count = bestelling.Sumtoppings;
-            for (int i = 0; i < count; i++)
+            try
             {
-                Console.WriteLine("topping " + i);
-                bestelling.addtopping(Convert.ToString(Console.ReadLine()));
+                bestelling bestelling = new bestelling();
+                Console.Clear();
+                Console.WriteLine("Maak uw bestelling: ");
+
+                Console.WriteLine("Naam: ");
+                bestelling.Naam = Convert.ToString(Console.ReadLine());
+
+                Console.WriteLine("Adress: ");
+                bestelling.Adress = Convert.ToString(Console.ReadLine());
+
+                Console.WriteLine("Postcode en stad: ");
+                bestelling.Postcodeenstad = Convert.ToString(Console.ReadLine());
+
+                Console.WriteLine("Naam pizza: ");
+                bestelling.Naampizza = Convert.ToString(Console.ReadLine());
+
+                Console.WriteLine("Aantal pizza's: ");
+                bestelling.Sumpizza = Convert.ToInt32(Console.ReadLine());
+
+                Console.WriteLine("Hoeveel extra toppings: ");
+                bestelling.Sumtoppings = Convert.ToInt32(Console.ReadLine());
+                int count = bestelling.Sumtoppings;
+                for (int i = 0; i < count; i++)
+                {
+                    Console.WriteLine("topping " + i);
+                    bestelling.addtopping(Convert.ToString(Console.ReadLine()));
+                }
+
+                udpconnectie.Connect(bestelling.Naam, bestelling.Adress, bestelling.Postcodeenstad, bestelling.Naampizza, bestelling.Sumpizza, bestelling.Sumtoppings, bestelling.Topping, bestelling.Datumtijd);
+
             }
-
-            udpconnectie.Connect(bestelling.Naam, bestelling.Adress, bestelling.Postcodeenstad, bestelling.Naampizza, bestelling.Sumpizza, bestelling.Sumtoppings, bestelling.Topping, bestelling.Datumtijd);
-
+            catch (Exception e)
+            {
+               Console.WriteLine(e.ToString());
+            }
+         
 
         }
 

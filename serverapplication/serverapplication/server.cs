@@ -30,14 +30,14 @@ namespace serverapplication
             if (con == 1)
             {
                 tcpconnect();
-                Main();
+                
             }
 
             //dit is voor UDP
             if (con == 0)
             {
                 udpconnect();
-                Main();
+             
             }
 
 
@@ -117,21 +117,14 @@ namespace serverapplication
                         //Console.WriteLine("Sent: {0}", ontvangen);
                         check = false;
                     }
-                    }
-                   
-               
-                server.Stop();
-               
-            
+                    }             
+                server.Stop();       
                 } 
                       
             catch (Exception)
             {
                 Console.Clear();
             }
-            
-
-
         }
 
         public static void udpconnect()
@@ -143,7 +136,6 @@ namespace serverapplication
             List<string> info = new List<string>();
             string[] bestelling;
             bool data = true;
-
             try
                 {
                 while (true)
@@ -156,9 +148,14 @@ namespace serverapplication
                     foreach (var item in bestelling)
                     {
                         info.Add(item);
+                        foreach (var iteminfo in info)
+                        {
+                            Console.WriteLine(iteminfo);
+
+                        }
                     }
 
-                    Console.WriteLine(Data);
+                    
                     if (data)
                     {
                         info.Insert(1, Decrypt.DecryptString(info[1]));
@@ -171,20 +168,21 @@ namespace serverapplication
                     string ontvangen = "Uw bestelling is ontvangen!!";
                     sendBytes = System.Text.Encoding.ASCII.GetBytes(ontvangen);
                     udpServer.Send(sendBytes, sendBytes.Length, remoteEP);
+                                    
                 } 
             }            
-            catch (Exception)
+            catch (Exception e)
             {
                 Console.Clear();
+                Console.WriteLine(e);
             }
-                
             foreach (var item in info)
             {
                 Console.WriteLine(item);
             }
             Console.ReadLine();
             udpServer.Close();
-
+            Console.WriteLine("server closed");
         }
           
            
