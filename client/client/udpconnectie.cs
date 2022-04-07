@@ -38,6 +38,8 @@ namespace client
                 DatumTijd = System.Text.Encoding.ASCII.GetBytes(";" + datumtijd);
                 udpClient.Send(DatumTijd, DatumTijd.Length, RemoteIp);
 
+               
+
                 Console.WriteLine("Naam: {0}", naam);
                 Console.WriteLine("Adress: {0}", adress);
                 Console.WriteLine("Postcode en Stad: {0}", postcodeenstad);
@@ -50,14 +52,20 @@ namespace client
                 Byte[] receiveBytes = udpClient.Receive(ref RemoteIp);
                 string bestelling = Encoding.ASCII.GetString(receiveBytes);
                 Console.WriteLine(bestelling.ToString());
-                
-              
+
+                Byte[] serverclose = System.Text.Encoding.ASCII.GetBytes("serverclose");
+                udpClient.Send(serverclose, serverclose.Length, RemoteIp);
+
+                udpClient.Close();
+                Console.WriteLine("server closed");
+                Console.ReadLine();
+
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
-            udpClient.Close();
+       
 
         }
     }

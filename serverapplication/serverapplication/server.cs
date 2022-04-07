@@ -9,12 +9,15 @@ namespace serverapplication
     public class Program
     {
         public static void Main()
-        {
+        {            
             Console.Clear();
+            //hier wil je configureren via welke socket je wilt dat er verbinding gemaakt gaat worden
             Console.WriteLine("Via welke socket wil je de server runnen : ");
             Console.WriteLine("tcp = 1");
             Console.WriteLine("udp = 0");
             int con = Convert.ToInt32(Console.ReadLine());
+            //hier controleer je of je een keuze hebt gemaakt tussen tcp of udp, je moet een keuze maken.
+            //Anders word het je nog een keer gevraagd.
             while (con > 1 | con < 0)
             {
                 if (true)
@@ -26,86 +29,82 @@ namespace serverapplication
                     con = Convert.ToInt32(Console.ReadLine());
                 }
             }
-            //dit is voor udp
+            //hier heb je voor tcp gekozen
             if (con == 1)
             {
+                //maak je een server die draait op tcp
                 tcpconnect();
-                
+                con = 3;
             }
 
-            //dit is voor UDP
+            //hier heb je voor udp gekozen
             if (con == 0)
             {
+                //maak je een server die draait op udp
                 udpconnect();
-             
+                con = 3;
+
             }
-
-
+            //hierdoor begint de applicatie weer vanaf het begin
+            if (con == 3)
+            {
+                Main();
+            }
         }
 
         public static void tcpconnect()
         {
-            TcpListener server = null;
-            // Set the TcpListener on port 13000.
+            //Hierdoor kan je de bestelling list class gebruiken
+            Bestelling Bestelling = new Bestelling();
+            //Hierdoor kan je de authentication authorize method gebruiken
+            Authentication authentication = new Authentication();
+
+            //hier zet je de juiste port en ipadress waarop je wilt dat de server gaat runnen
             Int32 port = 13000;
             IPAddress localAddr = IPAddress.Parse("127.0.0.1");
-            // TcpListener server = new TcpListener(port);
-            server = new TcpListener(localAddr, port);
-            // Start listening for client requests.
+            
+            //hier geef je aan op welke IpAddress en port de server draait
+            TcpListener server = new TcpListener(localAddr, port);
+            // Start met luisteren naar buitenstaanders
             server.Start();
 
-            // Buffer for reading data
+            //een buffer om de data te kunnen lezen
             Byte[] bytes = new Byte[256];
-            bool Data = true;
             bool check = true;
-            List<string> info = new List<string>();
 
 
             try
                 {
-                    Console.Write("Waiting for a connection... ");
+                Console.Write("Waiting for a connection... ");
+                //bekijkt of er een connectie plaats vind tussen de client en server
+                TcpClient clienttcp = server.AcceptTcpClient();
+                Console.WriteLine("Connected!");
 
-                    TcpClient clienttcp = server.AcceptTcpClient();
-                    Console.WriteLine("Connected!");
+                // Een stream object voor het lezen en schrijven van data
+                NetworkStream stream = clienttcp.GetStream();
 
-                    
+                int i;
 
-                    // Get a stream object for reading and writing
-                    NetworkStream stream = clienttcp.GetStream();
-
-                    int i;
-
-                    // Loop to receive all the data sent by the client.
+                    //Een while loop die alle data die de client stuurd ontvangt
                     while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
                     {
-                        // Translate data bytes to a ASCII string.
-                        String data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
-                        string[] bestelling = data.Split(';');
+                         // Vertaal databytes naar een ASCII string
+                         String data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
+                         //hier splits je de string data in meerdere kolommen data
+                         string[] bestelling = data.Split(';');
+
+                    //hierbij kijk je hoeveel items er in de array bestelling zitten
+                    //elke item in de array bestelling add je aan de list van bestelling class
+                    //en laat je de data zien in de console met console.writeline
                     foreach (var item in bestelling)
                     {
-                        info.Add(item);
+                        Bestelling.addbestelling(item);
+                        Console.WriteLine(item);
                     }
 
-
-                    if (Data)
-                    {
-                        
-                        info.Insert(1, Decrypt.DecryptString(info[1]));
-                        info.RemoveAt(2);
-                        info.Insert(2, Decrypt.DecryptString(info[2]));
-                        info.RemoveAt(3);
-                        Data = false;
-                    }
-
-                    if (bestelling.Length < info.Count)
-                    {
-                        foreach (var item in info)
-                        {
-                            Console.WriteLine(item);
-                        }
-                    }
-                    
-
+                    //omdat we maar 1 keer uw bestelling is ontvangen willen sturen doen we dat door
+                    //1 keer door deze if heen te gaan. 
+                    //dit zorgt er dus voor dat Uw bestelling is ontvagen!! word verstuurd naar de client
                     if (check)
                     {
                         // hierbij pak je de data om naar de client te sturen
@@ -114,78 +113,96 @@ namespace serverapplication
                         byte[] msg = System.Text.Encoding.ASCII.GetBytes(ontvangen);
                         // dit stuurt het naar de client
                         stream.Write(msg, 0, msg.Length);
-                        //Console.WriteLine("Sent: {0}", ontvangen);
+                        //en hier verander je check naar false zodat je niet nog een keer dit bericht verstuurd
                         check = false;
                     }
+                    //als de server ontvagnt van de client het bericht serverclose
+                    //dan stopt de server ermee 
+                    if (data == "serverclose")
+                    {
+                        server.Stop();
+                        Console.WriteLine();
+                        Console.WriteLine("server stopped");
+                   
+                        Console.WriteLine("vul in uw wachtwoord");
+                        //je pakt de gemaakte bestelling en zet die gelijk aan list
+                        List<string> list = Bestelling.ShowBestelling();
+                        //hierbij pas je authentication toe en gebruik je de methode in Authentication class authorize
+                        //je geeft hierbij mee het ingevoerde wachtwoord en het encrypte adress, postcode en stad
+                        authentication.authorize(Convert.ToString(Console.ReadLine()), list[1], list[2]);
+                    }
+                    
                     }             
-                server.Stop();       
+              
                 } 
-                      
-            catch (Exception)
+            //je kijkt hier naar exceptions en als er een exception is dan laat je die zien in de console        
+            catch (Exception e)
             {
-                Console.Clear();
+                Console.WriteLine(e.ToString());
             }
         }
 
         public static void udpconnect()
         {
-            Console.Write("Waiting for a connection... ");
+            Bestelling Bestelling = new Bestelling();
+            Authentication authentication = new Authentication();   
             UdpClient udpServer = new UdpClient(11000);          
             var remoteEP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 11000);
-            //var info = udpServer.Receive(ref remoteEP); 
-            List<string> info = new List<string>();
-            string[] bestelling;
-            bool data = true;
             try
                 {
+                //Een while loop die alle data die de client stuurd ontvangt
                 while (true)
                 {
+                    //hierbij kijk je wat de client stuurt naar de server en dat ontvang je via de code hieronder
+                    //je moet de received informatie eerst van byte naar string converteren 
                     Byte[] ReceiveBytes = null;
                     ReceiveBytes = udpServer.Receive(ref remoteEP);
                     string Data = Encoding.ASCII.GetString(ReceiveBytes);
-                    bestelling = Data.Split(';');
+                    string[] bestelling = Data.Split(';');
 
+                    //hierbij kijk je hoeveel items er in de array bestelling zitten
+                    //elke item in de array bestelling add je aan de list van bestelling class
+                    //en laat je de data zien in de console met console.writeline
                     foreach (var item in bestelling)
                     {
-                        info.Add(item);
-                        foreach (var iteminfo in info)
-                        {
-                            Console.WriteLine(iteminfo);
-
-                        }
+                        Bestelling.addbestelling(item);
+                        Console.WriteLine(item);
                     }
 
-                    
-                    if (data)
-                    {
-                        info.Insert(1, Decrypt.DecryptString(info[1]));
-                        info.RemoveAt(2);
-                        info.Insert(2, Decrypt.DecryptString(info[2]));
-                        info.RemoveAt(3);
-                        data = false;
-                    }
-                     Byte[] sendBytes;
+                    //hierbij verstuur je het bericht naar de client uw bestelling is ontvangen!!
+                    Byte[] sendBytes;
                     string ontvangen = "Uw bestelling is ontvangen!!";
                     sendBytes = System.Text.Encoding.ASCII.GetBytes(ontvangen);
                     udpServer.Send(sendBytes, sendBytes.Length, remoteEP);
-                                    
-                } 
-            }            
+
+                    //als de server ontvagnt van de client het bericht serverclose
+                    //dan stopt de server ermee 
+                    if (Data == "serverclose")
+                    {
+                        udpServer.Close();
+                        Console.WriteLine();
+                        Console.WriteLine("server stopped");
+
+                        Console.WriteLine("vul in uw wachtwoord");
+                        //je pakt de gemaakte bestelling en zet die gelijk aan list
+                        List<string> list = Bestelling.ShowBestelling();
+                        //hierbij pas je authentication toe en gebruik je de methode in Authentication class authorize
+                        //je geeft hierbij mee het ingevoerde wachtwoord en het encrypte adress, postcode en stad
+                        authentication.authorize(Convert.ToString(Console.ReadLine()), list[1], list[2]);
+                    }
+                }
+               
+
+
+            }
+            //je kijkt hier naar exceptions en als er een exception is dan laat je die zien in de console   
             catch (Exception e)
             {
-                Console.Clear();
-                Console.WriteLine(e);
+                Console.WriteLine(e.ToString());
             }
-            foreach (var item in info)
-            {
-                Console.WriteLine(item);
-            }
-            Console.ReadLine();
-            udpServer.Close();
-            Console.WriteLine("server closed");
-        }
-          
-           
+
+        
+        }          
     }
 }
 

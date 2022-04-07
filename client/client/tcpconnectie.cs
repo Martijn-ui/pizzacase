@@ -50,16 +50,19 @@ namespace client
                 Console.WriteLine("Hoeveel extra toppings: {0}", sumtoppings);
 
                 //dit leest de message die de client stuurt
-                int i;
+              
 
-                while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
-                {
-                    // Translate data bytes to a ASCII string.
-                    String ontvangen = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
-                    string[] msg = ontvangen.Split(';');
-                    Console.WriteLine(msg[0]);
-                    
-                }
+                int i = stream.Read(bytes, 0, bytes.Length);                
+                // Translate data bytes to a ASCII string.
+                String ontvangen = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
+                string[] msg = ontvangen.Split(';');
+                Console.WriteLine(msg[0]);
+
+                Byte[] serverclose = System.Text.Encoding.ASCII.GetBytes("serverclose");
+                stream.Write(serverclose, 0, serverclose.Length);
+
+
+
                 stream.Close();
                 client.Close();
 

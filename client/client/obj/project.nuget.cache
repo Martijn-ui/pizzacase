@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "pVLdcRuKC0eAqAXLtXBQGv2La0iNHIki2JE75m2PhddUdGa0pzMh/R7kDqMdNkVv65sFZu8sJql5sDmlN5AvkQ==",
+  "dgSpecHash": "GZvGlD7gDjXuawV/OxtegXNx154dfkSMuTvHQM1yZ0/KBWsIqM1RVo0K1M/Ivy8VlutsHwHwKNxEe70TGoga0Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Gebruiker\\Documents\\GitHub\\pizzacase\\client\\client\\client.csproj",
+  "projectFilePath": "D:\\pizzacase\\pizzacase\\client\\client\\client.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Gebruiker\\.nuget\\packages\\microsoft.netcore.app.ref\\5.0.0\\microsoft.netcore.app.ref.5.0.0.nupkg.sha512"
+    "C:\\Users\\Marti\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.15\\microsoft.netcore.app.host.win-x64.5.0.15.nupkg.sha512",
+    "C:\\Users\\Marti\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\5.0.0\\microsoft.aspnetcore.app.ref.5.0.0.nupkg.sha512",
+    "C:\\Users\\Marti\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\5.0.0\\microsoft.windowsdesktop.app.ref.5.0.0.nupkg.sha512",
+    "C:\\Users\\Marti\\.nuget\\packages\\microsoft.netcore.app.ref\\5.0.0\\microsoft.netcore.app.ref.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }
