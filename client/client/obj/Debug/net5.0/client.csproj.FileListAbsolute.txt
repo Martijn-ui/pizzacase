@@ -14,3 +14,10 @@ C:\Users\Gebruiker\Documents\GitHub\pizzacase\client\client\obj\Debug\net5.0\cli
 C:\Users\Gebruiker\Documents\GitHub\pizzacase\client\client\obj\Debug\net5.0\ref\client.dll
 C:\Users\Gebruiker\Documents\GitHub\pizzacase\client\client\obj\Debug\net5.0\client.pdb
 C:\Users\Gebruiker\Documents\GitHub\pizzacase\client\client\obj\Debug\net5.0\client.genruntimeconfig.cache
+D:\pizzacase\pizzacase\client\client\obj\Debug\net5.0\client.csproj.AssemblyReference.cache
+D:\pizzacase\pizzacase\client\client\obj\Debug\net5.0\client.GeneratedMSBuildEditorConfig.editorconfig
+D:\pizzacase\pizzacase\client\client\obj\Debug\net5.0\client.AssemblyInfoInputs.cache
+D:\pizzacase\pizzacase\client\client\obj\Debug\net5.0\client.AssemblyInfo.cs
+D:\pizzacase\pizzacase\client\client\obj\Debug\net5.0\client.csproj.CoreCompileInputs.cache
+D:\pizzacase\pizzacase\client\client\obj\Debug\net5.0\client.dll
+D:\pizzacase\pizzacase\client\client\obj\Debug\net5.0\client.pdb

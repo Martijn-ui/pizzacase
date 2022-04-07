@@ -48,6 +48,7 @@ namespace serverapplication
             //hierdoor begint de applicatie weer vanaf het begin
             if (con == 3)
             {
+                Console.ReadLine();
                 Main();
             }
         }
@@ -56,8 +57,6 @@ namespace serverapplication
         {
             //Hierdoor kan je de bestelling list class gebruiken
             Bestelling Bestelling = new Bestelling();
-            //Hierdoor kan je de authentication authorize method gebruiken
-            Authentication authentication = new Authentication();
 
             //hier zet je de juiste port en ipadress waarop je wilt dat de server gaat runnen
             Int32 port = 13000;
@@ -129,7 +128,7 @@ namespace serverapplication
                         List<string> list = Bestelling.ShowBestelling();
                         //hierbij pas je authentication toe en gebruik je de methode in Authentication class authorize
                         //je geeft hierbij mee het ingevoerde wachtwoord en het encrypte adress, postcode en stad
-                        authentication.authorize(Convert.ToString(Console.ReadLine()), list[1], list[2]);
+                        Authentication.authorize(Convert.ToString(Console.ReadLine()), list[1], list[2]);
                     }
                     
                     }             
@@ -144,9 +143,10 @@ namespace serverapplication
 
         public static void udpconnect()
         {
+            //Hierdoor kan je de bestelling list class gebruiken
             Bestelling Bestelling = new Bestelling();
-            Authentication authentication = new Authentication();   
-            UdpClient udpServer = new UdpClient(11000);          
+            //hier geef je aan op welke port de server draait
+            UdpClient udpServer = new UdpClient(11000);   
             var remoteEP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 11000);
             try
                 {
@@ -188,7 +188,7 @@ namespace serverapplication
                         List<string> list = Bestelling.ShowBestelling();
                         //hierbij pas je authentication toe en gebruik je de methode in Authentication class authorize
                         //je geeft hierbij mee het ingevoerde wachtwoord en het encrypte adress, postcode en stad
-                        authentication.authorize(Convert.ToString(Console.ReadLine()), list[1], list[2]);
+                        Authentication.authorize(Convert.ToString(Console.ReadLine()), list[1], list[2]);
                     }
                 }
                

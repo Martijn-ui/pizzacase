@@ -8,7 +8,7 @@ namespace serverapplication
 {
     public class Authentication
     {
-        public void authorize(string Key, string Postcodeenstad, string Adress)
+        public static void authorize(string Key, string Postcodeenstad, string Adress)
         {
             
             //de juiste key 

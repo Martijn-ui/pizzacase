@@ -18,11 +18,14 @@ namespace client
         {
 
             Console.Clear();
+            //hier wil je configureren via welke socket je wilt dat er verbinding gemaakt gaat worden
             Console.WriteLine("Kies via welke je wilt connecten : ");
             Console.WriteLine("tcp = 1");
             Console.WriteLine("udp = 0");
             int con = Convert.ToInt32(Console.ReadLine());
             Boolean check = true;
+            //hier controleer je of je een keuze hebt gemaakt tussen tcp of udp, je moet een keuze maken.
+            //Anders word het je nog een keer gevraagd.
             while (con > 1 | con < 0)
             {           
                 if(check)
@@ -34,7 +37,7 @@ namespace client
                     con = Convert.ToInt32(Console.ReadLine());
                 }         
             }
-            //dit is voor tcp
+            //hier heb je voor tcp gekozen
             if (con == 1)
             {
                 bestellingvragenenversturentcp();
@@ -43,8 +46,7 @@ namespace client
                 Console.ReadLine();
                 Main();
             }
-
-            //dit is voor UDP
+            //hier heb je voor udp gekozen
             if (con == 0)
             {
                 bestellingvragenenversturenudp();
@@ -54,11 +56,13 @@ namespace client
                 Main();
             }
         }
-
+         
         private static void bestellingvragenenversturentcp()
         {
             try
             {
+                //Dit is een vragenlijst en word er gevraagd wat je wilt voor je bestelling
+                //de ingevulde data word naar de class bestelling opgeslagen
                 bestelling bestelling = new bestelling();
                 Console.Clear();
                 Console.WriteLine("Maak uw bestelling: ");
@@ -81,6 +85,8 @@ namespace client
                 Console.WriteLine("Hoeveel extra toppings: ");
                 bestelling.Sumtoppings = Convert.ToInt32(Console.ReadLine());
                 int count = bestelling.Sumtoppings;
+                //hier bekijk je hoeveel extra toppings erbij moeten
+                //en zo vaak ga je door deze for loop 
                 for (int i = 0; i < count; i++)
                 {
                     Console.WriteLine("topping " + i);
@@ -89,11 +95,12 @@ namespace client
 
                 PrijsVisitor prijsCalc = new();
                 Console.WriteLine("Totaalprijs: " + bestelling.accept(prijsCalc));
-
+                //hierbij maak je de connectie met de server via tcp en geef je de ingevulde bestelling mee
                 tcpconnectie.Connect(bestelling.Naam, bestelling.Adress, bestelling.Postcodeenstad, bestelling.Naampizza, bestelling.Sumpizza, bestelling.Sumtoppings, bestelling.Topping, bestelling.Datumtijd);
 
 
             }
+            //je kijkt hier naar exceptions en als er een exception is dan laat je die zien in de console   
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
@@ -104,6 +111,8 @@ namespace client
         {
             try
             {
+                //Dit is een vragenlijst en word er gevraagd wat je wilt voor je bestelling
+                //de ingevulde data word naar de class bestelling opgeslagen
                 bestelling bestelling = new bestelling();
                 Console.Clear();
                 Console.WriteLine("Maak uw bestelling: ");
@@ -134,10 +143,11 @@ namespace client
 
                 PrijsVisitor prijsCalc = new();
                 Console.WriteLine("Totaalprijs: " + bestelling.accept(prijsCalc));
-
+                //hierbij maak je de connectie met de server via tcp en geef je de ingevulde bestelling mee
                 udpconnectie.Connect(bestelling.Naam, bestelling.Adress, bestelling.Postcodeenstad, bestelling.Naampizza, bestelling.Sumpizza, bestelling.Sumtoppings, bestelling.Topping, bestelling.Datumtijd);
 
             }
+            //je kijkt hier naar exceptions en als er een exception is dan laat je die zien in de console   
             catch (Exception e)
             {
                Console.WriteLine(e.ToString());
